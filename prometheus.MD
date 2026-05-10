@@ -1,48 +1,47 @@
 # Prometheus
 
-prometheus systemctl service
+Reference: https://prometheus.io/download/
+
+* move to /opt directory
+```
+wget https://github.com/prometheus/prometheus/releases/download/v3.0.1/prometheus-3.0.1.linux-amd64.tar.gz
+```
+
+* Extract tar file
+```
+tar -xf prometheus-3.0.1.linux-amd64.tar.gz
+```
+
+* Rename if required
+
+```
+mv prometheus-3.0.1.linux-amd64 prometheus
+```
+
+* Create systemctl service
+```
+vim /etc/systemd/system/prometheus.service
+```
+
+* Enter below info
 ```
 [Unit]
 Description=Prometheus Server
-Documentation=https://prometheus.io/docs/introduction/overview/
-After=network-online.target
 
 [Service]
-Restart=on-failure
 ExecStart=/opt/prometheus/prometheus --config.file=/opt/prometheus/prometheus.yml
 
 [Install]
 WantedBy=multi-user.target
 ```
 
-node_exporter systemctl service
-
 ```
-[Unit]
-Description=Node Exporter
-After=network-online.target
-
-[Service]
-Restart=on-failure
-ExecStart=/opt/node_exporter/node_exporter
-
-[Install]
-WantedBy=multi-user.target
+systemctl start prometheus
+```
+```
+systemctl enable prometheus
 ```
 
-Alert Manager
 
-```
-[Unit]
-Description=Alertmanager
-Wants=network-online.target
-After=network-online.target
 
-[Service]
-Type=simple
-WorkingDirectory=/opt/alertmanager/
-ExecStart=/opt/alertmanager/alertmanager --config.file=/opt/alertmanager/alertmanager.yml
 
-[Install]
-WantedBy=multi-user.target
-```

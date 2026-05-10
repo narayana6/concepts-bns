@@ -41,7 +41,7 @@ If you measure all four golden signals and page a human when one signal is probl
 
 ### ELK
 
-![alt text](images/elk.png)
+![alt text](elk.png)
 
 ELK is a stack/suit from elasticsearch. 
 
@@ -172,6 +172,24 @@ systemctl enable kibana
 #### Logstash
 
 1. Install logstash
+
+Add the logstash repo
+```
+sudo rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+```
+```
+vim /etc/yum.repos.d/logstash.repo
+```
+```
+[logstash-8.x]
+name=Elastic repository for 8.x packages
+baseurl=https://artifacts.elastic.co/packages/8.x/yum
+gpgcheck=1
+gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+enabled=1
+autorefresh=1
+type=rpm-md
+```
 
 ```
 yum install logstash -y
